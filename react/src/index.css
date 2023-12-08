@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+
+@layer components {
+  .slider-thumb::-webkit-slider-thumb {
+    @apply appearance-none w-3 h-3 rounded-full cursor-pointer bg-gray-400/80;
+  }
+}
+
+@tailwind utilities;

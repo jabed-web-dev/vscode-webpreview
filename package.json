@@ -1,0 +1,225 @@
+{
+  "name": "web-preview",
+  "displayName": "Web Preview",
+  "description": "Live Web Preview for local web development in vscode like html-css, react, vue, tailwindcss",
+  "version": "1.0.3",
+  "keywords": [
+    "web",
+    "preview",
+    "html",
+    "live",
+    "browser",
+    "react"
+  ],
+  "author": "Jabed Hossain",
+  "publisher": "JabedHossain",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jabed-dev/vscode-webpreview.git"
+  },
+  "engines": {
+    "vscode": "^1.70.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "icon": "icon.png",
+  "main": "out/extension.js",
+  "activationEvents": [
+    "onCommand:preview.open",
+    "onWebviewPanel:preview"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "preview.open",
+        "title": "Open Web Preview",
+        "icon": "$(preview)"
+      },
+      {
+        "command": "preview.back",
+        "title": "Go Back",
+        "icon": "$(arrow-left)"
+      },
+      {
+        "command": "preview.forward",
+        "title": "Go Forward",
+        "icon": "$(arrow-right)"
+      },
+      {
+        "command": "preview.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "preview.url",
+        "title": "Web Preview Url",
+        "icon": "$(search)"
+      },
+      {
+        "command": "preview.screenView",
+        "title": "Toggle view Column",
+        "icon": "$(editor-layout)"
+      },
+      {
+        "command": "preview.responsiveView",
+        "title": "Toggle resizable responsive view",
+        "icon": "$(screen-full)"
+      },
+      {
+        "command": "preview.openDevTools",
+        "title": "Open developer Tools",
+        "icon": "$(terminal)"
+      },
+      {
+        "command": "preview.openInBrowser",
+        "title": "Open in Browser",
+        "icon": "$(link-external)"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "preview.open",
+        "key": "ctrl+alt+p"
+      },
+      {
+        "command": "preview.url",
+        "key": "ctrl+alt+u"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "preview.back",
+          "when": "false"
+        },
+        {
+          "command": "preview.forward",
+          "when": "false"
+        },
+        {
+          "command": "preview.refresh",
+          "when": "false"
+        },
+        {
+          "command": "preview.url",
+          "when": "PreviewActive"
+        },
+        {
+          "command": "preview.responsiveView",
+          "when": "false"
+        },
+        {
+          "command": "preview.screenView",
+          "when": "false"
+        },
+        {
+          "command": "preview.openDevTools",
+          "when": "false"
+        },
+        {
+          "command": "preview.openInBrowser",
+          "when": "false"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "preview.back",
+          "group": "navigation@1",
+          "when": "PreviewActive && activeWebviewPanelId == 'preview'"
+        },
+        {
+          "command": "preview.forward",
+          "group": "navigation@2",
+          "when": "false"
+        },
+        {
+          "command": "preview.refresh",
+          "group": "navigation@3",
+          "when": "PreviewActive && activeWebviewPanelId == 'preview'"
+        },
+        {
+          "command": "preview.url",
+          "group": "navigation@4",
+          "when": "PreviewActive && activeWebviewPanelId == 'preview'"
+        },
+        {
+          "command": "preview.screenView",
+          "group": "navigation@5",
+          "when": "PreviewActive && activeWebviewPanelId == 'preview'"
+        },
+        {
+          "command": "preview.responsiveView",
+          "group": "navigation@6",
+          "when": "PreviewActive && activeWebviewPanelId == 'preview'"
+        },
+        {
+          "command": "preview.openDevTools",
+          "group": "navigation@7",
+          "when": "PreviewActive && activeWebviewPanelId == 'preview'"
+        },
+        {
+          "command": "preview.openInBrowser",
+          "group": "navigation@8",
+          "when": "PreviewActive && activeWebviewPanelId == 'preview'"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Preview",
+      "properties": {
+        "webPreview.url": {
+          "type": "string",
+          "default": "http://localhost:3000",
+          "description": "The localhost address to your frame on."
+        },
+        "webPreview.mediaScreenOverride": {
+          "type": "boolean",
+          "default": false,
+          "description": "Preview media screen default values override"
+        },
+        "webPreview.mediaScreen": {
+          "type": "object",
+          "default": {
+            "SM": 640,
+            "MD": 768,
+            "LG": 1024,
+            "XL": 1280,
+            "2XL": 1536
+          },
+          "description": "Preview media screen break point. Example: { \"MD\": 540 } or { \"Mobile\": \"375x780\" }"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "lint": "eslint \"src/**/*.ts\"",
+    "watch": "tsc -w -p ./"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.70.0",
+    "@vscode/test-electron": "^2.1.5",
+    "eslint": "^8.20.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "typescript": "^4.7.4"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

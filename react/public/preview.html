@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Preview</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		html,
+		body {
+			width: 100%;
+			height: 100%;
+		}
+
+		#frame {
+			width: 100%;
+			height: 95%;
+			resize: both;
+		}
+	</style>
+</head>
+
+<body>
+	<div style="text-align: center;">
+		<button id="back">Back</button>
+		<button id="forward">Forward</button>
+		<button id="refresh">Refresh</button>
+		<button id="url">Url</button>
+		<button id="responsive-view">Responsive View</button>
+	</div>
+	<iframe src="/" frameborder="1" id="frame" name="frame" width="100" height="95"></iframe>
+
+	<script>
+		const back = document.getElementById('back')
+		const forward = document.getElementById('forward')
+		const refresh = document.getElementById('refresh')
+		const url = document.getElementById('url')
+		const responsiveView = document.getElementById('responsive-view')
+		const frame = document.getElementById('frame')
+		let currentUrl = 'http://localhost:3030'
+
+		// disable src/index.js vscode api
+		back.addEventListener('click', (event) => {
+			event.preventDefault()
+			frame.contentWindow.postMessage({ preview: { back: true } })
+		})
+		forward.addEventListener('click', (event) => {
+			event.preventDefault()
+			frame.contentWindow.postMessage({ preview: { forward: true } })
+		})
+		refresh.addEventListener('click', (event) => {
+			event.preventDefault()
+			frame.contentWindow.postMessage({ preview: { refresh: true } })
+		})
+		url.addEventListener('click', (event) => {
+			event.preventDefault()
+			currentUrl = prompt('Preview Url: http://localhost:3030', currentUrl)
+			frame.contentWindow.postMessage({ preview: { url: currentUrl } })
+		})
+		responsiveView.addEventListener('click', (event) => {
+			event.preventDefault()
+			frame.contentWindow.postMessage({ preview: { responsive: true } })
+		})
+	</script>
+</body>
+
+</html>
